@@ -2,13 +2,14 @@ package login;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver; 
-
+import org.openqa.selenium.chrome.ChromeDriver;
 public class Loginvalid 
 	{
 	WebDriver driver;
@@ -38,17 +39,22 @@ public class Loginvalid
 	        pwtb.sendKeys("admin123");
 	        WebElement lbck = driver.findElement(By.xpath("//button[@type='submit']"));
 		    lbck.click();
+		    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		    Assert.assertEquals("driver.getTitle();", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index", "Login successful");
 	}
-/*	@Test
+	@Test
 	public void invalidusername()
 	{
 		System.out.println("invalidusername");
 	 	WebElement untb = driver.findElement(By.name("username"));
-        untb.sendKeys("administra");
+        untb.sendKeys("NagarajM");
         WebElement pwtb = driver.findElement(By.name("password"));
         pwtb.sendKeys("admin123");
         WebElement lbck = driver.findElement(By.xpath("//button[@type='submit']"));
 	    lbck.click();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	    Assert.assertEquals(driver.findElement(By.xpath("//div[@role='alert']//div//p")).getText(), "Invalid credentials");
+	    
 	}
 	@Test
 	public void invalidpassword()
@@ -57,21 +63,25 @@ public class Loginvalid
 	 	WebElement untb = driver.findElement(By.name("username"));
         untb.sendKeys("Admin");
         WebElement pwtb = driver.findElement(By.name("password"));
-        pwtb.sendKeys("administra123");
+        pwtb.sendKeys("NagarajM123");
         WebElement lbck = driver.findElement(By.xpath("//button[@type='submit']"));
 	    lbck.click();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	    Assert.assertEquals(driver.findElement(By.xpath("//div[@role='alert']//div//p")).getText(), "Invalid credentials");
 	}
 	@Test
 	public void invallidboth()
 	{
 		System.out.println("invallidboth");
 	 	WebElement untb = driver.findElement(By.name("username"));
-        untb.sendKeys("admintra");
+        untb.sendKeys("NagarajM");
         WebElement pwtb = driver.findElement(By.name("password"));
-        pwtb.sendKeys("admintra123");
+        pwtb.sendKeys("Nagaraj246");
         WebElement lbck = driver.findElement(By.xpath("//button[@type='submit']"));
 	    lbck.click();
-	}*/
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	    Assert.assertEquals(driver.findElement(By.xpath("//div[@role='alert']//div//p")).getText(), "Invalid credentials");
+	}
 	@AfterSuite
 	public void closebrowser()
 	{
